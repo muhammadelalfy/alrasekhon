@@ -1,0 +1,2715 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Dispatcher Documentation</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/obsidian.min.css">
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jets/0.14.1/jets.min.js"></script>
+
+    <style id="language-style">
+        /* starts out as display none and is replaced with js later  */
+                    body .content .bash-example code { display: none; }
+                    body .content .javascript-example code { display: none; }
+            </style>
+
+    <script>
+        var baseUrl = "http://dispatcher.test";
+        var useCsrf = Boolean();
+        var csrfUrl = "/sanctum/csrf-cookie";
+    </script>
+    <script src="../docs/js/tryitout-4.10.1.js"></script>
+
+    <script src="../docs/js/theme-default-4.10.1.js"></script>
+
+</head>
+
+<body data-languages="[&quot;bash&quot;,&quot;javascript&quot;]">
+
+<a href="#" id="nav-button">
+    <span>
+        MENU
+        <img src="../docs/images/navbar.png" alt="navbar-image"/>
+    </span>
+</a>
+<div class="tocify-wrapper">
+    
+            <div class="lang-selector">
+                                            <button type="button" class="lang-button" data-language-name="bash">bash</button>
+                                            <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                    </div>
+    
+    <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+
+    <div id="toc">
+                    <ul id="tocify-header-introduction" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="introduction">
+                    <a href="#introduction">Introduction</a>
+                </li>
+                            </ul>
+                    <ul id="tocify-header-authenticating-requests" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="authenticating-requests">
+                    <a href="#authenticating-requests">Authenticating requests</a>
+                </li>
+                            </ul>
+                    <ul id="tocify-header-driver-authorization" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="driver-authorization">
+                    <a href="#driver-authorization">Driver Authorization</a>
+                </li>
+                                    <ul id="tocify-subheader-driver-authorization" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-login">
+                                <a href="#driver-authorization-POSTdriver-api-v1-login">login</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-forget-password">
+                                <a href="#driver-authorization-POSTdriver-api-v1-forget-password">forget password</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-otp-check">
+                                <a href="#driver-authorization-POSTdriver-api-v1-otp-check">otp check</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-reset-password">
+                                <a href="#driver-authorization-POSTdriver-api-v1-reset-password">reset password</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-version-check">
+                                <a href="#driver-authorization-POSTdriver-api-v1-version-check">mobile app version register check (for store review)</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-change-password">
+                                <a href="#driver-authorization-POSTdriver-api-v1-change-password">change password</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-GETdriver-api-v1-logout">
+                                <a href="#driver-authorization-GETdriver-api-v1-logout">logout</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-authorization-POSTdriver-api-v1-refresh-token">
+                                <a href="#driver-authorization-POSTdriver-api-v1-refresh-token">refresh fcm token</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-driver-profile" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="driver-profile">
+                    <a href="#driver-profile">Driver Profile</a>
+                </li>
+                                    <ul id="tocify-subheader-driver-profile" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="driver-profile-GETdriver-api-v1-profile">
+                                <a href="#driver-profile-GETdriver-api-v1-profile">get profile data</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-profile-PUTdriver-api-v1-update-profile">
+                                <a href="#driver-profile-PUTdriver-api-v1-update-profile">update profile data</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="driver-profile-PUTdriver-api-v1-change-status">
+                                <a href="#driver-profile-PUTdriver-api-v1-change-status">update status</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-files" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="files">
+                    <a href="#files">Files</a>
+                </li>
+                                    <ul id="tocify-subheader-files" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="files-POSTdriver-api-v1-files">
+                                <a href="#files-POSTdriver-api-v1-files">update profile data</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-notifications" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="notifications">
+                    <a href="#notifications">Notifications</a>
+                </li>
+                                    <ul id="tocify-subheader-notifications" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="notifications-GETdriver-api-v1-notifications">
+                                <a href="#notifications-GETdriver-api-v1-notifications">list of driver notifications</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-orders" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="orders">
+                    <a href="#orders">Orders</a>
+                </li>
+                                    <ul id="tocify-subheader-orders" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="orders-GETdriver-api-v1-orders">
+                                <a href="#orders-GETdriver-api-v1-orders">list of driver notifications</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="orders-POSTdriver-api-v1-orders--id--picked">
+                                <a href="#orders-POSTdriver-api-v1-orders--id--picked">pick up order</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="orders-POSTdriver-api-v1-orders--id--delivered">
+                                <a href="#orders-POSTdriver-api-v1-orders--id--delivered">delivery order</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+            </div>
+
+    <ul class="toc-footer" id="toc-footer">
+                    <li style="padding-bottom: 5px;"><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li style="padding-bottom: 5px;"><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
+                <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
+    </ul>
+
+    <ul class="toc-footer" id="last-updated">
+        <li>Last updated: January 17, 2023</li>
+    </ul>
+</div>
+
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1 id="introduction">Introduction</h1>
+<aside>
+    <strong>Base URL</strong>: <code>http://dispatcher.test</code>
+</aside>
+<p>This documentation aims to provide all the information you need to work with our API.</p>
+<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
+You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+
+        <h1 id="authenticating-requests">Authenticating requests</h1>
+<p>This API is not authenticated.</p>
+
+        <h1 id="driver-authorization">Driver Authorization</h1>
+
+    
+
+                                <h2 id="driver-authorization-POSTdriver-api-v1-login">login</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-login">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/login" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"login\": \"sunt\",
+    \"password\": \"}bWRD\\/{EsoH?w\",
+    \"device_id\": \"ipsa\",
+    \"device_name\": \"nesciunt\",
+    \"device_os\": \"libero\",
+    \"device_os_version\": 74.7355,
+    \"app_version\": 88,
+    \"timezone\": \"Africa\\/Conakry\",
+    \"fcm_token\": \"sit\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/login"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "login": "sunt",
+    "password": "}bWRD\/{EsoH?w",
+    "device_id": "ipsa",
+    "device_name": "nesciunt",
+    "device_os": "libero",
+    "device_os_version": 74.7355,
+    "app_version": 88,
+    "timezone": "Africa\/Conakry",
+    "fcm_token": "sit"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-login">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+ &quot;data&quot;:{
+     &quot;driver&quot;:{
+         &quot;id&quot;:1,
+         &quot;name&quot;:&quot;test driver&quot;,
+         .....
+      }
+  }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-login" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-login"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-login" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-login" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-login"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-login" data-method="POST"
+      data-path="driver-api/v1/login"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-login', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-login"
+                    onclick="tryItOut('POSTdriver-api-v1-login');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-login"
+                    onclick="cancelTryOut('POSTdriver-api-v1-login');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-login" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/login</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-login"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-login"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>login</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="login"                data-endpoint="POSTdriver-api-v1-login"
+               value="sunt"
+               data-component="body">
+    <br>
+<p>(email or phone) Example: <code>sunt</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="password"                data-endpoint="POSTdriver-api-v1-login"
+               value="}bWRD/{EsoH?w"
+               data-component="body">
+    <br>
+<p>Example: <code>}bWRD/{EsoH?w</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>device_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="device_id"                data-endpoint="POSTdriver-api-v1-login"
+               value="ipsa"
+               data-component="body">
+    <br>
+<p>Example: <code>ipsa</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>device_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="device_name"                data-endpoint="POSTdriver-api-v1-login"
+               value="nesciunt"
+               data-component="body">
+    <br>
+<p>Example: <code>nesciunt</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>device_os</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="device_os"                data-endpoint="POSTdriver-api-v1-login"
+               value="libero"
+               data-component="body">
+    <br>
+<p>Example: <code>libero</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>device_os_version</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="device_os_version"                data-endpoint="POSTdriver-api-v1-login"
+               value="74.7355"
+               data-component="body">
+    <br>
+<p>Example: <code>74.7355</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>app_version</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="app_version"                data-endpoint="POSTdriver-api-v1-login"
+               value="88"
+               data-component="body">
+    <br>
+<p>Example: <code>88</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>timezone</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="timezone"                data-endpoint="POSTdriver-api-v1-login"
+               value="Africa/Conakry"
+               data-component="body">
+    <br>
+<p>Example: <code>Africa/Conakry</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>fcm_token</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="fcm_token"                data-endpoint="POSTdriver-api-v1-login"
+               value="sit"
+               data-component="body">
+    <br>
+<p>Example: <code>sit</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-authorization-POSTdriver-api-v1-forget-password">forget password</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-forget-password">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/forget-password" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"doyle.maximo@example.com\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/forget-password"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "doyle.maximo@example.com"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-forget-password">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-forget-password" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-forget-password"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-forget-password" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-forget-password" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-forget-password"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-forget-password" data-method="POST"
+      data-path="driver-api/v1/forget-password"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-forget-password', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-forget-password"
+                    onclick="tryItOut('POSTdriver-api-v1-forget-password');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-forget-password"
+                    onclick="cancelTryOut('POSTdriver-api-v1-forget-password');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-forget-password" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/forget-password</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-forget-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-forget-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="email"                data-endpoint="POSTdriver-api-v1-forget-password"
+               value="doyle.maximo@example.com"
+               data-component="body">
+    <br>
+<p>Example: <code>doyle.maximo@example.com</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-authorization-POSTdriver-api-v1-otp-check">otp check</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-otp-check">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/otp-check" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"xdoyle@example.org\",
+    \"code\": \"odio\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/otp-check"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "xdoyle@example.org",
+    "code": "odio"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-otp-check">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-otp-check" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-otp-check"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-otp-check" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-otp-check" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-otp-check"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-otp-check" data-method="POST"
+      data-path="driver-api/v1/otp-check"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-otp-check', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-otp-check"
+                    onclick="tryItOut('POSTdriver-api-v1-otp-check');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-otp-check"
+                    onclick="cancelTryOut('POSTdriver-api-v1-otp-check');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-otp-check" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/otp-check</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-otp-check"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-otp-check"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="email"                data-endpoint="POSTdriver-api-v1-otp-check"
+               value="xdoyle@example.org"
+               data-component="body">
+    <br>
+<p>Example: <code>xdoyle@example.org</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="code"                data-endpoint="POSTdriver-api-v1-otp-check"
+               value="odio"
+               data-component="body">
+    <br>
+<p>Example: <code>odio</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-authorization-POSTdriver-api-v1-reset-password">reset password</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-reset-password">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/reset-password" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"hirthe.lee@example.org\",
+    \"code\": \"voluptatem\",
+    \"password\": \"=uf-g+D+vv7(XE4\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/reset-password"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "hirthe.lee@example.org",
+    "code": "voluptatem",
+    "password": "=uf-g+D+vv7(XE4"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-reset-password">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-reset-password" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-reset-password"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-reset-password" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-reset-password" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-reset-password"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-reset-password" data-method="POST"
+      data-path="driver-api/v1/reset-password"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-reset-password', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-reset-password"
+                    onclick="tryItOut('POSTdriver-api-v1-reset-password');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-reset-password"
+                    onclick="cancelTryOut('POSTdriver-api-v1-reset-password');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-reset-password" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/reset-password</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-reset-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-reset-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="email"                data-endpoint="POSTdriver-api-v1-reset-password"
+               value="hirthe.lee@example.org"
+               data-component="body">
+    <br>
+<p>Example: <code>hirthe.lee@example.org</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="code"                data-endpoint="POSTdriver-api-v1-reset-password"
+               value="voluptatem"
+               data-component="body">
+    <br>
+<p>Example: <code>voluptatem</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="password"                data-endpoint="POSTdriver-api-v1-reset-password"
+               value="=uf-g+D+vv7(XE4"
+               data-component="body">
+    <br>
+<p>Example: <code>=uf-g+D+vv7(XE4</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-authorization-POSTdriver-api-v1-version-check">mobile app version register check (for store review)</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-version-check">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/version-check" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"version\": 3.3769
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/version-check"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "version": 3.3769
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-version-check">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;check&quot;: true
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-version-check" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-version-check"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-version-check" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-version-check" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-version-check"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-version-check" data-method="POST"
+      data-path="driver-api/v1/version-check"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-version-check', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-version-check"
+                    onclick="tryItOut('POSTdriver-api-v1-version-check');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-version-check"
+                    onclick="cancelTryOut('POSTdriver-api-v1-version-check');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-version-check" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/version-check</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-version-check"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-version-check"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>version</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               name="version"                data-endpoint="POSTdriver-api-v1-version-check"
+               value="3.3769"
+               data-component="body">
+    <br>
+<p>Example: <code>3.3769</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-authorization-POSTdriver-api-v1-change-password">change password</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-change-password">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/change-password" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"old_password\": \"perspiciatis\",
+    \"password\": \"v)XCD9AH9J\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/change-password"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "old_password": "perspiciatis",
+    "password": "v)XCD9AH9J"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-change-password">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-change-password" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-change-password"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-change-password" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-change-password" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-change-password"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-change-password" data-method="POST"
+      data-path="driver-api/v1/change-password"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-change-password', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-change-password"
+                    onclick="tryItOut('POSTdriver-api-v1-change-password');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-change-password"
+                    onclick="cancelTryOut('POSTdriver-api-v1-change-password');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-change-password" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/change-password</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-change-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-change-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>old_password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="old_password"                data-endpoint="POSTdriver-api-v1-change-password"
+               value="perspiciatis"
+               data-component="body">
+    <br>
+<p>Example: <code>perspiciatis</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="password"                data-endpoint="POSTdriver-api-v1-change-password"
+               value="v)XCD9AH9J"
+               data-component="body">
+    <br>
+<p>Example: <code>v)XCD9AH9J</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-authorization-GETdriver-api-v1-logout">logout</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETdriver-api-v1-logout">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://dispatcher.test/driver-api/v1/logout" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/logout"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETdriver-api-v1-logout">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;status&quot;: 200,
+    &quot;message&quot;: &quot;&quot;,
+    &quot;data&quot;: {}
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETdriver-api-v1-logout" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETdriver-api-v1-logout"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETdriver-api-v1-logout" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETdriver-api-v1-logout" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETdriver-api-v1-logout"></code></pre>
+</span>
+<form id="form-GETdriver-api-v1-logout" data-method="GET"
+      data-path="driver-api/v1/logout"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETdriver-api-v1-logout', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETdriver-api-v1-logout"
+                    onclick="tryItOut('GETdriver-api-v1-logout');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETdriver-api-v1-logout"
+                    onclick="cancelTryOut('GETdriver-api-v1-logout');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETdriver-api-v1-logout" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>driver-api/v1/logout</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="GETdriver-api-v1-logout"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="GETdriver-api-v1-logout"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="driver-authorization-POSTdriver-api-v1-refresh-token">refresh fcm token</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-refresh-token">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/refresh-token" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"fcm_token\": \"et\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/refresh-token"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "fcm_token": "et"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-refresh-token">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-refresh-token" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-refresh-token"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-refresh-token" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-refresh-token" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-refresh-token"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-refresh-token" data-method="POST"
+      data-path="driver-api/v1/refresh-token"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-refresh-token', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-refresh-token"
+                    onclick="tryItOut('POSTdriver-api-v1-refresh-token');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-refresh-token"
+                    onclick="cancelTryOut('POSTdriver-api-v1-refresh-token');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-refresh-token" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/refresh-token</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-refresh-token"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-refresh-token"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>fcm_token</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="fcm_token"                data-endpoint="POSTdriver-api-v1-refresh-token"
+               value="et"
+               data-component="body">
+    <br>
+<p>Example: <code>et</code></p>
+        </div>
+        </form>
+
+                <h1 id="driver-profile">Driver Profile</h1>
+
+    
+
+                                <h2 id="driver-profile-GETdriver-api-v1-profile">get profile data</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETdriver-api-v1-profile">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://dispatcher.test/driver-api/v1/profile" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/profile"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETdriver-api-v1-profile">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;data&quot;:{
+    &quot;id&quot;:1,
+    &quot;name&quot;:&quot;test driver&quot;,
+     .....
+  }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETdriver-api-v1-profile" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETdriver-api-v1-profile"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETdriver-api-v1-profile" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETdriver-api-v1-profile" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETdriver-api-v1-profile"></code></pre>
+</span>
+<form id="form-GETdriver-api-v1-profile" data-method="GET"
+      data-path="driver-api/v1/profile"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETdriver-api-v1-profile', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETdriver-api-v1-profile"
+                    onclick="tryItOut('GETdriver-api-v1-profile');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETdriver-api-v1-profile"
+                    onclick="cancelTryOut('GETdriver-api-v1-profile');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETdriver-api-v1-profile" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>driver-api/v1/profile</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="GETdriver-api-v1-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="GETdriver-api-v1-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="driver-profile-PUTdriver-api-v1-update-profile">update profile data</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTdriver-api-v1-update-profile">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://dispatcher.test/driver-api/v1/update-profile" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"driver_avatar\": 111.30632099,
+    \"phone\": \"molestiae\",
+    \"email\": \"uvolkman@example.net\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/update-profile"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "driver_avatar": 111.30632099,
+    "phone": "molestiae",
+    "email": "uvolkman@example.net"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTdriver-api-v1-update-profile">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;data&quot;:{
+    &quot;id&quot;:1,
+    &quot;name&quot;:&quot;test driver&quot;,
+     .....
+  }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTdriver-api-v1-update-profile" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTdriver-api-v1-update-profile"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTdriver-api-v1-update-profile" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTdriver-api-v1-update-profile" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTdriver-api-v1-update-profile"></code></pre>
+</span>
+<form id="form-PUTdriver-api-v1-update-profile" data-method="PUT"
+      data-path="driver-api/v1/update-profile"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTdriver-api-v1-update-profile', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTdriver-api-v1-update-profile"
+                    onclick="tryItOut('PUTdriver-api-v1-update-profile');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTdriver-api-v1-update-profile"
+                    onclick="cancelTryOut('PUTdriver-api-v1-update-profile');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTdriver-api-v1-update-profile" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>driver-api/v1/update-profile</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="PUTdriver-api-v1-update-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="PUTdriver-api-v1-update-profile"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>driver_avatar</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="driver_avatar"                data-endpoint="PUTdriver-api-v1-update-profile"
+               value="111.30632099"
+               data-component="body">
+    <br>
+<p>(id of file that uploaded from files api) Example: <code>111.30632099</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="phone"                data-endpoint="PUTdriver-api-v1-update-profile"
+               value="molestiae"
+               data-component="body">
+    <br>
+<p>Example: <code>molestiae</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="email"                data-endpoint="PUTdriver-api-v1-update-profile"
+               value="uvolkman@example.net"
+               data-component="body">
+    <br>
+<p>Example: <code>uvolkman@example.net</code></p>
+        </div>
+        </form>
+
+                    <h2 id="driver-profile-PUTdriver-api-v1-change-status">update status</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTdriver-api-v1-change-status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://dispatcher.test/driver-api/v1/change-status" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/change-status"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTdriver-api-v1-change-status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;status&quot;: 200,
+    &quot;message&quot;: &quot;success&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTdriver-api-v1-change-status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTdriver-api-v1-change-status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTdriver-api-v1-change-status" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTdriver-api-v1-change-status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTdriver-api-v1-change-status"></code></pre>
+</span>
+<form id="form-PUTdriver-api-v1-change-status" data-method="PUT"
+      data-path="driver-api/v1/change-status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTdriver-api-v1-change-status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTdriver-api-v1-change-status"
+                    onclick="tryItOut('PUTdriver-api-v1-change-status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTdriver-api-v1-change-status"
+                    onclick="cancelTryOut('PUTdriver-api-v1-change-status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTdriver-api-v1-change-status" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>driver-api/v1/change-status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="PUTdriver-api-v1-change-status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="PUTdriver-api-v1-change-status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                <h1 id="files">Files</h1>
+
+    
+
+                                <h2 id="files-POSTdriver-api-v1-files">update profile data</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-files">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/files" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "type=driver_avatar" \
+    --form "attachment=@/tmp/phpjFQzkz" </code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/files"
+);
+
+const headers = {
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('type', 'driver_avatar');
+body.append('attachment', document.querySelector('input[name="attachment"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-files">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;data&quot;:{
+    &quot;id&quot;:1,
+    &quot;name&quot;:&quot;test driver&quot;,
+     .....
+  }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-files" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-files"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-files" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-files" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-files"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-files" data-method="POST"
+      data-path="driver-api/v1/files"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-files', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-files"
+                    onclick="tryItOut('POSTdriver-api-v1-files');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-files"
+                    onclick="cancelTryOut('POSTdriver-api-v1-files');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-files" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/files</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-files"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-files"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>attachment</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+               name="attachment"                data-endpoint="POSTdriver-api-v1-files"
+               value=""
+               data-component="body">
+    <br>
+<p>Example: <code>/tmp/phpjFQzkz</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="type"                data-endpoint="POSTdriver-api-v1-files"
+               value="driver_avatar"
+               data-component="body">
+    <br>
+<p>Must be one of <code>driver_avatar</code>. Example: <code>driver_avatar</code></p>
+        </div>
+        </form>
+
+                <h1 id="notifications">Notifications</h1>
+
+    
+
+                                <h2 id="notifications-GETdriver-api-v1-notifications">list of driver notifications</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETdriver-api-v1-notifications">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://dispatcher.test/driver-api/v1/notifications?page=22290528.582483" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/notifications"
+);
+
+const params = {
+    "page": "22290528.582483",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETdriver-api-v1-notifications">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+&quot;data&quot;: [
+{
+&quot;id&quot;: 1,
+&quot;title&quot;: &quot;New order&quot;,
+&quot;body&quot;: &quot;You have a new order, order code is: SO-006447757&quot;,
+&quot;data&quot;: &quot;&quot;,
+&quot;read_at&quot;: &quot;&quot;,
+&quot;redirect_type&quot;: &quot;order&quot;,
+&quot;redirect_id&quot;: 36
+}
+],
+&quot;links&quot;: {
+&quot;first&quot;: &quot;http://dispatcher.test/driver-api/v1/notifications?page=1&quot;,
+&quot;last&quot;: &quot;http://dispatcher.test/driver-api/v1/notifications?page=1&quot;,
+&quot;prev&quot;: null,
+&quot;next&quot;: null
+},
+&quot;meta&quot;: {
+&quot;current_page&quot;: 1,
+&quot;from&quot;: 1,
+&quot;last_page&quot;: 1,
+&quot;links&quot;: [
+{
+&quot;url&quot;: null,
+&quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+&quot;active&quot;: false
+},
+{
+&quot;url&quot;: &quot;http://dispatcher.test/driver-api/v1/notifications?page=1&quot;,
+&quot;label&quot;: &quot;1&quot;,
+&quot;active&quot;: true
+},
+{
+&quot;url&quot;: null,
+&quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+&quot;active&quot;: false
+}
+],
+&quot;path&quot;: &quot;http://dispatcher.test/driver-api/v1/notifications&quot;,
+&quot;per_page&quot;: 10,
+&quot;to&quot;: 1,
+&quot;total&quot;: 1
+},
+&quot;status&quot;: 200</code>
+ </pre>
+    </span>
+<span id="execution-results-GETdriver-api-v1-notifications" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETdriver-api-v1-notifications"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETdriver-api-v1-notifications" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETdriver-api-v1-notifications" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETdriver-api-v1-notifications"></code></pre>
+</span>
+<form id="form-GETdriver-api-v1-notifications" data-method="GET"
+      data-path="driver-api/v1/notifications"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETdriver-api-v1-notifications', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETdriver-api-v1-notifications"
+                    onclick="tryItOut('GETdriver-api-v1-notifications');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETdriver-api-v1-notifications"
+                    onclick="cancelTryOut('GETdriver-api-v1-notifications');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETdriver-api-v1-notifications" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>driver-api/v1/notifications</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="GETdriver-api-v1-notifications"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="GETdriver-api-v1-notifications"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="page"                data-endpoint="GETdriver-api-v1-notifications"
+               value="22290528.582483"
+               data-component="query">
+    <br>
+<p>(number for pagination) Example: <code>22290528.582483</code></p>
+            </div>
+                </form>
+
+                <h1 id="orders">Orders</h1>
+
+    
+
+                                <h2 id="orders-GETdriver-api-v1-orders">list of driver notifications</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETdriver-api-v1-orders">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://dispatcher.test/driver-api/v1/orders?type=5419647.128964&amp;page=71932780.905&amp;status=155815158.398&amp;keyword=et" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/orders"
+);
+
+const params = {
+    "type": "5419647.128964",
+    "page": "71932780.905",
+    "status": "155815158.398",
+    "keyword": "et",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETdriver-api-v1-orders">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;status&quot;: {
+                &quot;id&quot;: 80,
+                &quot;key&quot;: 2,
+                &quot;value&quot;: 1,
+                &quot;statusText&quot;: &quot;Assigned&quot;,
+                &quot;lat&quot;: null,
+                &quot;lng&quot;: null,
+                &quot;duration&quot;: 22569,
+                &quot;datetime&quot;: &quot;2022-11-16T13:09:40.000000Z&quot;
+            },
+            &quot;customer&quot;: {
+                &quot;id&quot;: 35,
+                &quot;code&quot;: &quot;C-000061753&quot;,
+                &quot;name&quot;: &quot;BAYAN ONLINE LINK&quot;,
+                &quot;phone&quot;: &quot;99232301&quot;,
+                &quot;address&quot;: null,
+                &quot;group&quot;: null,
+                &quot;segment&quot;: null,
+                &quot;parent_segment_id&quot;: null,
+                &quot;segment_id&quot;: null,
+                &quot;group_id&quot;: null,
+                &quot;standard_delivery_time&quot;: null
+            },
+            &quot;segment&quot;: {
+                &quot;id&quot;: 33,
+                &quot;name&quot;: &quot;4th Area&quot;
+            },
+            &quot;sub_segment&quot;: {
+                &quot;id&quot;: 38,
+                &quot;name&quot;: &quot;Bayan&quot;
+            },
+            &quot;invoice_status&quot;: null,
+            &quot;assigned_status&quot;: {
+                &quot;id&quot;: 71,
+                &quot;key&quot;: 2,
+                &quot;value&quot;: 1,
+                &quot;statusText&quot;: &quot;Assigned&quot;,
+                &quot;lat&quot;: null,
+                &quot;lng&quot;: null,
+                &quot;duration&quot;: null,
+                &quot;datetime&quot;: null
+            },
+            &quot;picked_status&quot;: null,
+            &quot;delivered_status&quot;: null,
+            &quot;assigned_warehouse&quot;: {
+                &quot;id&quot;: 12,
+                &quot;name&quot;: &quot;HATEEN&quot;
+            },
+            &quot;original_warehouse&quot;: {
+                &quot;id&quot;: 23,
+                &quot;name&quot;: &quot;RCC&quot;
+            },
+            &quot;assigned_driver&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Velit illo ad error&quot;
+            },
+            &quot;actions_enabled&quot;: true,
+            &quot;pick_to_deliver_duration&quot;: 0,
+            &quot;new_to_assign_duration&quot;: 0,
+            &quot;assign_to_pick_duration&quot;: 0,
+            &quot;items&quot;: [
+                {
+                    &quot;id&quot;: 59,
+                    &quot;name&quot;: &quot;ZYRTEC ORAL SOLUTION 0,1% 75 ML&quot;,
+                    &quot;code&quot;: &quot;15395&quot;,
+                    &quot;price&quot;: 1.47,
+                    &quot;quantity&quot;: 1,
+                    &quot;net_amount&quot;: 1.47,
+                    &quot;discount&quot;: 0
+                },
+                {
+                    &quot;id&quot;: 14,
+                    &quot;name&quot;: &quot;ADOL 250MG SUSPENSION 100 ML&quot;,
+                    &quot;code&quot;: &quot;10610&quot;,
+                    &quot;price&quot;: 0.7,
+                    &quot;quantity&quot;: 1,
+                    &quot;net_amount&quot;: 0.7,
+                    &quot;discount&quot;: 0
+                },
+                {
+                    &quot;id&quot;: 60,
+                    &quot;name&quot;: &quot;SINOMARIN NOSE CARE CHILDREN SPRAY 100ML&quot;,
+                    &quot;code&quot;: &quot;47268&quot;,
+                    &quot;price&quot;: 6.45,
+                    &quot;quantity&quot;: 1,
+                    &quot;net_amount&quot;: 6.45,
+                    &quot;discount&quot;: 0
+                }
+            ],
+            &quot;notes&quot;: [],
+            &quot;id&quot;: 36,
+            &quot;code&quot;: &quot;SO-006447757&quot;,
+            &quot;type&quot;: &quot;Sales&quot;,
+            &quot;creation_date&quot;: &quot;2022-11-01 00:00&quot;,
+            &quot;standard_delivery_duration&quot;: null,
+            &quot;received_at&quot;: &quot;2022-11-16 11:58&quot;
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;http://dispatcher.test/driver-api/v1/orders?page=1&quot;,
+        &quot;last&quot;: &quot;http://dispatcher.test/driver-api/v1/orders?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;http://dispatcher.test/driver-api/v1/orders?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;http://dispatcher.test/driver-api/v1/orders&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 1,
+        &quot;total&quot;: 1
+    },
+    &quot;status&quot;: 200
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETdriver-api-v1-orders" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETdriver-api-v1-orders"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETdriver-api-v1-orders" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETdriver-api-v1-orders" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETdriver-api-v1-orders"></code></pre>
+</span>
+<form id="form-GETdriver-api-v1-orders" data-method="GET"
+      data-path="driver-api/v1/orders"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETdriver-api-v1-orders', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETdriver-api-v1-orders"
+                    onclick="tryItOut('GETdriver-api-v1-orders');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETdriver-api-v1-orders"
+                    onclick="cancelTryOut('GETdriver-api-v1-orders');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETdriver-api-v1-orders" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>driver-api/v1/orders</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="GETdriver-api-v1-orders"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="GETdriver-api-v1-orders"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="type"                data-endpoint="GETdriver-api-v1-orders"
+               value="5419647.128964"
+               data-component="query">
+    <br>
+<p>(1 -&gt; sales order , 2 -&gt; transfer order) Example: <code>5419647.128964</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="page"                data-endpoint="GETdriver-api-v1-orders"
+               value="71932780.905"
+               data-component="query">
+    <br>
+<p>(number for pagination) Example: <code>71932780.905</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               name="status"                data-endpoint="GETdriver-api-v1-orders"
+               value="155815158.398"
+               data-component="query">
+    <br>
+<p>(0 -&gt; new, 4 -&gt; picked, 2 -&gt;delivered) Example: <code>155815158.398</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>keyword</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="keyword"                data-endpoint="GETdriver-api-v1-orders"
+               value="et"
+               data-component="query">
+    <br>
+<p>(order id, order warehouse name,customer name, customer phone) Example: <code>et</code></p>
+            </div>
+                </form>
+
+                    <h2 id="orders-POSTdriver-api-v1-orders--id--picked">pick up order</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-orders--id--picked">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/orders/1/picked" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"lat\": \"et\",
+    \"lng\": \"quia\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/orders/1/picked"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "lat": "et",
+    "lng": "quia"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-orders--id--picked">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-orders--id--picked" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-orders--id--picked"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-orders--id--picked" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-orders--id--picked" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-orders--id--picked"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-orders--id--picked" data-method="POST"
+      data-path="driver-api/v1/orders/{id}/picked"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-orders--id--picked', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-orders--id--picked"
+                    onclick="tryItOut('POSTdriver-api-v1-orders--id--picked');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-orders--id--picked"
+                    onclick="cancelTryOut('POSTdriver-api-v1-orders--id--picked');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-orders--id--picked" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/orders/{id}/picked</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-orders--id--picked"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-orders--id--picked"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               name="id"                data-endpoint="POSTdriver-api-v1-orders--id--picked"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the order. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>lat</code></b>&nbsp;&nbsp;
+<small>numeric</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="lat"                data-endpoint="POSTdriver-api-v1-orders--id--picked"
+               value="et"
+               data-component="body">
+    <br>
+<p>Example: <code>et</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>lng</code></b>&nbsp;&nbsp;
+<small>numeric</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="lng"                data-endpoint="POSTdriver-api-v1-orders--id--picked"
+               value="quia"
+               data-component="body">
+    <br>
+<p>Example: <code>quia</code></p>
+        </div>
+        </form>
+
+                    <h2 id="orders-POSTdriver-api-v1-orders--id--delivered">delivery order</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTdriver-api-v1-orders--id--delivered">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dispatcher.test/driver-api/v1/orders/1/delivered" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"lat\": \"molestiae\",
+    \"lng\": \"quia\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dispatcher.test/driver-api/v1/orders/1/delivered"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "lat": "molestiae",
+    "lng": "quia"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTdriver-api-v1-orders--id--delivered">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+ &quot;status&quot;: 200,
+ &quot;message&quot;: &quot;&quot;,
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTdriver-api-v1-orders--id--delivered" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTdriver-api-v1-orders--id--delivered"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTdriver-api-v1-orders--id--delivered" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTdriver-api-v1-orders--id--delivered" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTdriver-api-v1-orders--id--delivered"></code></pre>
+</span>
+<form id="form-POSTdriver-api-v1-orders--id--delivered" data-method="POST"
+      data-path="driver-api/v1/orders/{id}/delivered"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTdriver-api-v1-orders--id--delivered', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTdriver-api-v1-orders--id--delivered"
+                    onclick="tryItOut('POSTdriver-api-v1-orders--id--delivered');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTdriver-api-v1-orders--id--delivered"
+                    onclick="cancelTryOut('POSTdriver-api-v1-orders--id--delivered');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTdriver-api-v1-orders--id--delivered" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>driver-api/v1/orders/{id}/delivered</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Content-Type"                data-endpoint="POSTdriver-api-v1-orders--id--delivered"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+               name="Accept"                data-endpoint="POSTdriver-api-v1-orders--id--delivered"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               name="id"                data-endpoint="POSTdriver-api-v1-orders--id--delivered"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the order. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>lat</code></b>&nbsp;&nbsp;
+<small>numeric</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="lat"                data-endpoint="POSTdriver-api-v1-orders--id--delivered"
+               value="molestiae"
+               data-component="body">
+    <br>
+<p>Example: <code>molestiae</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>lng</code></b>&nbsp;&nbsp;
+<small>numeric</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+               name="lng"                data-endpoint="POSTdriver-api-v1-orders--id--delivered"
+               value="quia"
+               data-component="body">
+    <br>
+<p>Example: <code>quia</code></p>
+        </div>
+        </form>
+
+            
+
+        
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                                        <button type="button" class="lang-button" data-language-name="bash">bash</button>
+                                                        <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                            </div>
+            </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+import{B as t,H as i}from"./app.ca0dd7db.js";class n extends t{static get entity(){return"competition-levels"}}class p extends t{static get entity(){return"advertisements"}static async upload(s){return await i.post(`${this.entity}/upload`,s)}}export{p as A,n as C};

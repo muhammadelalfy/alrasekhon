@@ -1,0 +1,483 @@
+name: 'Driver Authorization'
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/login
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: login
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      login:
+        name: login
+        description: '(email or phone)'
+        required: true
+        example: sunt
+        type: string
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: '}bWRD/{EsoH?w'
+        type: string
+        custom: []
+      device_id:
+        name: device_id
+        description: ''
+        required: true
+        example: ipsa
+        type: string
+        custom: []
+      device_name:
+        name: device_name
+        description: ''
+        required: true
+        example: nesciunt
+        type: string
+        custom: []
+      device_os:
+        name: device_os
+        description: ''
+        required: false
+        example: libero
+        type: string
+        custom: []
+      device_os_version:
+        name: device_os_version
+        description: ''
+        required: false
+        example: 74.7355
+        type: number
+        custom: []
+      app_version:
+        name: app_version
+        description: ''
+        required: false
+        example: 88.0
+        type: number
+        custom: []
+      timezone:
+        name: timezone
+        description: ''
+        required: false
+        example: Africa/Conakry
+        type: string
+        custom: []
+      fcm_token:
+        name: fcm_token
+        description: ''
+        required: false
+        example: sit
+        type: string
+        custom: []
+    cleanBodyParameters:
+      login: sunt
+      password: '}bWRD/{EsoH?w'
+      device_id: ipsa
+      device_name: nesciunt
+      device_os: libero
+      device_os_version: 74.7355
+      app_version: 88.0
+      timezone: Africa/Conakry
+      fcm_token: sit
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+           "data":{
+               "driver":{
+                   "id":1,
+                   "name":"test driver",
+                   .....
+                }
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/forget-password
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'forget password'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: ''
+        required: true
+        example: doyle.maximo@example.com
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: doyle.maximo@example.com
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/otp-check
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'otp check'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: ''
+        required: true
+        example: xdoyle@example.org
+        type: string
+        custom: []
+      code:
+        name: code
+        description: ''
+        required: true
+        example: odio
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: xdoyle@example.org
+      code: odio
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/reset-password
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'reset password'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: ''
+        required: true
+        example: hirthe.lee@example.org
+        type: string
+        custom: []
+      code:
+        name: code
+        description: ''
+        required: true
+        example: voluptatem
+        type: string
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: '=uf-g+D+vv7(XE4'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: hirthe.lee@example.org
+      code: voluptatem
+      password: '=uf-g+D+vv7(XE4'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/version-check
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'mobile app version register check (for store review)'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      version:
+        name: version
+        description: ''
+        required: true
+        example: 3.3769
+        type: number
+        custom: []
+    cleanBodyParameters:
+      version: 3.3769
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "check": true
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/change-password
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'change password'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      old_password:
+        name: old_password
+        description: ''
+        required: true
+        example: perspiciatis
+        type: string
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: v)XCD9AH9J
+        type: string
+        custom: []
+    cleanBodyParameters:
+      old_password: perspiciatis
+      password: v)XCD9AH9J
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: driver-api/v1/logout
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: logout
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+           "data":{
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: driver-api/v1/refresh-token
+    metadata:
+      groupName: 'Driver Authorization'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'refresh fcm token'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      fcm_token:
+        name: fcm_token
+        description: ''
+        required: true
+        example: et
+        type: string
+        custom: []
+    cleanBodyParameters:
+      fcm_token: et
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": 200,
+           "message": "",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

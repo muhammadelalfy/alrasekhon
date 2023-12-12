@@ -1,0 +1,23 @@
+<?php
+return [
+    'permission_required' => 'يجب ان تختار صلاحية واحدة على الاقل',
+    'data_deleted_successfully' => 'تم حذف البيانات بنجاح',
+    'Status Changed Successfully' => 'تم تغيير الحالة بنجاح',
+    'who_are_we' => 'من نحن',
+    'address' => 'العنوان',
+    'terms' => 'الشروط',
+    'privacy' => 'الخصوصية',
+    'help' => 'المساعدة',
+    'facebook' => 'الفيسبوك',
+    'telegram' => 'التيليجرام',
+    'instagram' => 'الانستجرام',
+    'whatsapp' => 'الواتس اب',
+    'twitter' => 'تويتر',
+    'role deleted successfully' => 'تم حذف الدور بنجاح',
+    'CompetitionLevel_deleted' => 'تم حذف المستوى بنجاح',
+    'role updated successfully' => 'تم تعديل الدور بنجاح',
+    'role cant be deleted its already used' => 'لا يمكن مسح هذا الدور لانه  خُصص لاحد المستخدمين',
+    'competition_concert_added_successfully' => 'تم اضافة حفل التكريم بنجاح',
+    'active'=>'مفعل',
+    'inActive'=>'غير مفعل',
+];

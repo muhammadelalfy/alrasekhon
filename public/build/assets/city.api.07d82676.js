@@ -1,0 +1,1 @@
+import{B as t,H as i}from"./app.ca0dd7db.js";class r extends t{static get entity(){return"country"}}class n extends t{static get entity(){return"governorate"}}class c extends t{static get entity(){return"city"}static async listCitiesById(s={}){return await i.get(`${this.entity}`,s)}}export{r as C,n as G,c as a};

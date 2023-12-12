@@ -1,0 +1,23 @@
+<?php
+return [
+    'permission_required' => 'you should select at least one permission',
+    'data_deleted_successfully' => 'Data deleted successfully',
+    'Status Changed Successfully' => 'Status Changed Successfully',
+    'who_are_we' => 'who are we',
+    'address' => 'address',
+    'terms' => 'terms',
+    'privacy' => 'privacy',
+    'help' => 'help',
+    'facebook' => 'facebook',
+    'telegram' => 'telegram',
+    'instagram' => 'instagram',
+    'whatsapp' => 'whatsapp',
+    'twitter' => 'twitter',
+    'role deleted successfully' => 'role deleted successfully',
+    'CompetitionLevel_deleted' => 'competition level deleted successfully',
+    'role updated successfully' => 'role updated successfully',
+    'role cant be deleted its already used' => 'role cant be deleted its already used',
+    'competition_concert_added_successfully' => 'competition concert added successfully',
+    'active' => 'active',
+    'inActive' => 'in active',
+];

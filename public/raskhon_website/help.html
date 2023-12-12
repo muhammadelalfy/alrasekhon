@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Home</title>
+    <link rel="shortcut icon" href="assets/img/fav.png" />
+
+    <!-- bootstrap 5 id english -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css"
+      integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    /> -->
+
+    <!-- bootstrap 5 if arabic -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.rtl.min.css"
+      integrity="sha512-rXhL8a+X3wTosWn2Zgd/5L8rfWrpff7qdOnl7Wg1n2zHk8lHGhiSujoyxoKw1nf43kZAzJoe0Z0ymr2Kkku7lQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      media="all"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css"
+      integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- jquery-ui -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+      integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Readex+Pro&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+
+  <!-- if language is english add class="ltr" dir="ltr" to body  -->
+  <body>
+    <!--  Start nav  -->
+    <!-- noooottteee !!! : add class inner-nav because menu is changed in other pages -->
+    <nav class="normal-nav flex-row flex-md-column inner-nav">
+      <div class="site-info d-none d-md-block w-100">
+        <div
+          class="container d-md-flex align-items-center justify-content-between flex-wrap"
+        >
+          <ul class="d-flex align-items-center flex-wrap pt-2">
+            <li class="d-flex align-items-center px-md-2 px-lg-3 mb-2">
+              <a
+                href="savedCompetitions.html"
+                class="d-flex align-items-center"
+              >
+                <i class="fa-solid fa-heart me-2"></i>
+                المسابقات المحفوظة
+              </a>
+            </li>
+          </ul>
+
+          <ul class="d-flex align-items-center flex-wrap pt-2">
+            <li class="px-md-2 px-lg-3 mb-2">
+              <ul class="social-links d-flex align-items-center flex-wrap">
+                <li class="d-flex align-items-center">
+                  <a href="#">
+                    <i class="fa-brands fa-snapchat"></i>
+                  </a>
+                </li>
+                <li class="d-flex align-items-center">
+                  <a href="#">
+                    <i class="fa-brands fa-youtube"></i>
+                  </a>
+                </li>
+                <li class="d-flex align-items-center">
+                  <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="d-flex align-items-center">
+                  <a href="#">
+                    <i class="fa-brands fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="d-flex align-items-center">
+                  <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="d-flex align-items-center px-md-2 px-lg-3 mb-2">
+              <a
+                href="href='tel:14520002686'"
+                class="d-flex align-items-center"
+              >
+                14520002686
+                <i class="fa-solid fa-phone ms-2"></i>
+              </a>
+            </li>
+            <li class="d-flex align-items-center px-md-2 px-lg-3 mb-2">
+              <a
+                href="mailto:info@alrasekhoun.Kw"
+                class="d-flex align-items-center"
+              >
+                info@alrasekhoun.Kw
+                <i class="fa-solid fa-envelope ms-2"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container">
+        <div
+          class="menu-bar d-flex d-md-none justify-content-between align-items-center"
+        >
+          <a href="index.html">
+            <img
+              src="assets/img/logo.svg"
+              loading="lazy"
+              class="logo"
+              alt="logo"
+            />
+          </a>
+          <div class="toggle">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="overlay"></div>
+
+        <div class="menu d-flex flex-wrap align-items-center">
+          <a href="index.html" class="d-none d-md-block">
+            <img
+              src="assets/img/logo.svg"
+              loading="lazy"
+              class="logo"
+              alt="logo"
+            />
+          </a>
+
+          <ul class="menu-links">
+            <li>
+              <a href="index.html">الرئيسية</a>
+            </li>
+            <li>
+              <a href="whoUs.html">من نحن</a>
+            </li>
+            <li>
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle"
+                  href="#"
+                  role="button"
+                  id="competitions"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  مسابقات القرآن الكريم
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="competitions">
+                  <li>
+                    <a class="dropdown-item" href="currentComp.html"
+                      >المسابقات الحالية</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="finishedComp.html"
+                      >المسابقات المنتهية</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle"
+                  href="#"
+                  role="button"
+                  id="myCompetitions"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  مسابقاتي
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="myCompetitions">
+                  <li>
+                    <a class="dropdown-item" href="subscribedComp.html"
+                      >المسابقاات المشترك بها</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="compResults.html"
+                      >نتائج المسابقات المنتهية</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a href="contactUs.html">تواصل معنا</a>
+            </li>
+            <!-- visible only on mobile mode -->
+            <li class="d-md-none">
+              <a href="notifications.html">الاشعارات</a>
+            </li>
+            <li class="d-md-none">
+              <a href="profile.html">اعدادات حسابي</a>
+            </li>
+            <li class="d-md-none">
+              <a href="savedCompetitions.html">المسابقات المحفوظة</a>
+            </li>
+          </ul>
+
+          <div class="d-flex align-items-center">
+            <a href="#" class="lang me-3">
+              <span>en</span>
+              <i class="fa-solid fa-globe ms-1"></i>
+            </a>
+
+            <!-- if there is no user -->
+            <!-- <a href="login.html" class="btn btn-primary border-0 w-fit">
+            التسجيل / حساب جديد
+          </a> -->
+
+            <!-- if there is user & visible only on desktop mode-->
+            <div class="d-none d-md-flex align-items-center">
+              <div class="dropdown me-3">
+                <a
+                  class="dropdown-toggle no-arrow"
+                  href="#"
+                  role="button"
+                  id="notifications"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-bell"></i>
+                  <span class="pulse"></span>
+                </a>
+
+                <ul
+                  class="dropdown-menu notifications-menu"
+                  aria-labelledby="notifications"
+                >
+                  <li>
+                    <div
+                      class="d-flex justify-content-between align-items-center flex-wrap"
+                    >
+                      <h6 class="fs-13 fw-bold mb-1">
+                        موعد مسابقة القرآن الكريم
+                      </h6>
+                      <span class="noti-date text-lightGray mb-1 fs-13"
+                        >الثلاثاء, 19 نوفمبر 2019</span
+                      >
+                    </div>
+                    <p class="mb-0 fs-13">
+                      موعد مسابقة القرآن الكريم, 19 نوفمبر 2019 في تمام الساعة
+                      العاشرة بقاعة المؤتمرات بالكويت
+                    </p>
+                  </li>
+                  <li>
+                    <div
+                      class="d-flex justify-content-between align-items-center flex-wrap"
+                    >
+                      <h6 class="fs-13 fw-bold mb-1">
+                        موعد مسابقة القرآن الكريم
+                      </h6>
+                      <span class="noti-date text-lightGray mb-1 fs-13"
+                        >الثلاثاء, 19 نوفمبر 2019</span
+                      >
+                    </div>
+                    <p class="mb-0 fs-13">
+                      موعد مسابقة القرآن الكريم, 19 نوفمبر 2019 في تمام الساعة
+                      العاشرة بقاعة المؤتمرات بالكويت
+                    </p>
+                  </li>
+                  <li class="p-0">
+                    <a
+                      class="dropdown-item d-flex justify-content-center noti-link"
+                      href="notifications.html"
+                    >
+                      مشاهدة الكل
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle no-arrow"
+                  href="#"
+                  role="button"
+                  id="user"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-user"></i>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="user">
+                  <li>
+                    <a class="dropdown-item" href="profile.html"
+                      >اعدادات حسابي</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger" href="login.html"
+                      >خروج</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!--end nav-->
+
+    <!-- start header -->
+    <header class="inner-header">
+      <div class="container position-relative z-index-1">
+        <div
+          class="flex-center flex-column text-center text-white h-100 flex-nowrap"
+          data-aos="fade-zoom-in"
+          data-aos-easing="ease-in-back"
+          data-aos-delay="200"
+          data-aos-offset="0"
+        >
+          <h1 class="mb-0">المساعدة</h1>
+        </div>
+      </div>
+    </header>
+    <!-- end header -->
+
+    <!-- start help -->
+    <section class="help text-dark py-5 bg-light">
+      <div class="container">
+        <img
+          src="assets/img/shape.png"
+          loading="lazy"
+          class="shape mx-auto mb-5 d-block"
+          alt="shape"
+        />
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b>مواعيد المسابقات:</b> يتم عرض مواعيد المسابقات المقبلة بوضوح على
+          الموقع، بما في ذلك التواريخ والأوقات المحددة للتسجيل والمشاركة
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b> إجراءات التسجيل:</b> يتم توفير تفاصيل وإرشادات حول كيفية التسجيل
+          في المسابقة، بما في ذلك الإجراءات اللازمة والمعلومات المطلوبة من
+          المشاركين
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b> تنسيق المسابقة:</b> يتم شرح تنسيق المسابقة بشكل واضح ومفصل، بما في
+          ذلك أنماط الأسئلة المستخدمة وكيفية تقديم الإجابات وآلية التقييم
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b> مصادر الدراسة:</b>
+
+          يمكن تقديم قائمة بالمصادر الموصى بها للتحضير للمسابقة، مثل تفاسير
+          القرآن وكتب تعليمية وموارد إلكترونية مفيدة
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b>نماذج الأسئلة:</b>
+          يمكن توفير عينات من الأسئلة السابقة أو نماذج تجريبية لمساعدة المشاركين
+          على فهم نوعية الأسئلة التي قد تواجههم في المسابقة
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b>توجيهات الأداء:</b>
+          يمكن توفير توجيهات ونصائح للمشاركين حول كيفية التعامل مع المسابقة، مثل
+          إدارة الوقت وتحسين التركيز والتحضير الجيد قبل المسابقة
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b>الاتصال والدعم:</b>
+          يجب توفير وسائل للتواصل مع فريق المسابقة لطرح الأسئلة أو طلب المساعدة،
+          سواء عبر البريد الإلكتروني أو الهاتف أو نموذج اتصال على الموقع
+        </p>
+
+        <p class="mb-3">
+          <i class="fa-solid fa-circle text-primary me-2 fs-10"></i>
+          <b>النتائج</b>
+          والجوائز: يجب عرض النتائج وإعلان الفائزين بوضوح وفي الوقت المحدد،
+          وكذلك تفاصيل الجوائز المقدمة للفائزين
+        </p>
+      </div>
+    </section>
+    <!-- end help -->
+    <!-- start footer -->
+    <footer class="text-white">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-md-6 col-lg-3 mb-4 d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="assets/img/footLogo.png"
+              loading="lazy"
+              class="logo mb-3"
+              alt="shape"
+            />
+
+            <ul class="social-links d-flex align-items-center flex-wrap">
+              <li class="d-flex align-items-center">
+                <a href="#">
+                  <i class="fa-brands fa-snapchat"></i>
+                </a>
+              </li>
+              <li class="d-flex align-items-center">
+                <a href="#">
+                  <i class="fa-brands fa-youtube"></i>
+                </a>
+              </li>
+              <li class="d-flex align-items-center">
+                <a href="#">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </li>
+              <li class="d-flex align-items-center">
+                <a href="#">
+                  <i class="fa-brands fa-twitter"></i>
+                </a>
+              </li>
+              <li class="d-flex align-items-center">
+                <a href="#">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-3 mb-4">
+            <h6 class="fw-bold mb-3">روابط مهمة</h6>
+            <ul class="links">
+              <li class="ps-3">
+                <a href="whoUs.html"> من نحن </a>
+              </li>
+              <li class="ps-3">
+                <a href="contactUs.html"> تواصل معنا </a>
+              </li>
+              <li class="ps-3">
+                <a href="help.html" class="active"> المساعدة </a>
+              </li>
+              <li class="ps-3">
+                <a href="privacy.html"> الشروط والخصوصية </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-3 mb-4">
+            <h6 class="fw-bold mb-3">طرق التواصل</h6>
+            <ul class="links contact">
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-location-dot me-2 fs-14"></i>
+                  شارع أحمد الجابر، أبراج العوض يمدينة الكويت، الكويت
+                </a>
+              </li>
+              <li>
+                <a cl href="mailto:info@alrasekhoun.Kw">
+                  <i class="fa-solid fa-envelope me-2 fs-14"></i>
+                  info@alrasekhoun.Kw
+                </a>
+              </li>
+              <li>
+                <a href="href='tel:+965 1801 800'">
+                  <i class="fa-solid fa-phone me-2 fs-14"></i>
+                  +965 1801 800
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <!-- start map -->
+            <div id="map" class="mx-auto"></div>
+            <!-- start map -->
+          </div>
+        </div>
+      </div>
+      <div class="foot text-lightGray">
+        <div class="container">
+          <div class="content">
+            Copyright © 2019 alrasekhoun.Kw Powered by
+            <a href="#" class="text-primary">www.alrasekhoun.Kw</a>
+          </div>
+          <!-- start scroll-top-->
+          <div id="scroll-top">
+            <i class="fa-solid fa-arrow-up"></i>
+          </div>
+          <!-- end scroll-top-->
+        </div>
+      </div>
+    </footer>
+    <!-- end footer -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap 5 -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"
+      integrity="sha512-sH8JPhKJUeA9PWk3eOcOl8U+lfZTgtBXD41q6cO/slwxGHCxKcW45K4oPCUhHG7NMB4mbKEddVmPuTXtpbCbFA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
